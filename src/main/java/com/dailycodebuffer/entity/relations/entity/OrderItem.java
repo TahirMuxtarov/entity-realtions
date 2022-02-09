@@ -1,5 +1,6 @@
 package com.dailycodebuffer.entity.relations.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,16 +17,35 @@ public class OrderItem {
     private Long id;
 
     private String itemName;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="ertert")
     private Orders order;
 
-    /*public OrderItem(String itemName, Orders order) {
-        this.itemName = itemName;
-        this.order = order;
+    /*@Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                '}';
     }*/
 
-    public OrderItem(String itemName) {
-        this.itemName = itemName;
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                //", order=" + order +
+                '}';
     }
+
+
+
+	public OrderItem(String itemName, Orders order) {
+		super();
+		this.itemName = itemName;
+		this.order = order;
+	}
+
+    
 }
